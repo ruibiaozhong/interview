@@ -206,7 +206,18 @@
             <version>2.4</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.groboutils</groupId>
+            <artifactId>groboutils-core</artifactId>
+            <version>5</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
