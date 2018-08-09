@@ -21,7 +21,7 @@ public class MyTest {
     public void testExpression() {
 
         try {
-            Thread.sleep(99);
+            Thread.sleep(9);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
