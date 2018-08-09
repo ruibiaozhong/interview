@@ -1,0 +1,48 @@
+server :
+    tomcat :
+      uri-encoding : UTF-8
+http :
+      encoding :
+        force : true
+        charset : UTF-8
+        enabled : true
+      devtools:
+              restart:  #是否自动重启
+                exclude: /static/**,/templates/**
+                enabled: false
+spring :
+  datasource :
+      name : so
+      url : jdbc:mysql://data-tt.curato.cn:3306/so-dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username : so
+      password : leihou888;
+      type : com.alibaba.druid.pool.DruidDataSource
+      driver-class-name : com.mysql.jdbc.Driver
+  # Redis数据库索引（默认为0）
+  redis :
+    database : 1
+  # Redis服务器地址
+    host : data.tt.curato.cn
+  # Redis服务器连接端口
+    port : 6379
+  # Redis服务器连接密码（默认为空）
+    password :
+  # 连接池最大连接数（使用负值表示没有限制）
+    pool.max-active : 1024
+  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    pool.max-wait : 1000
+  # 连接池中的最大空闲连接
+    pool.max-idle : 200
+  # 连接池中的最小空闲连接
+    pool.min-idle : 0
+  # 连接超时时间（毫秒）
+    timeout : 5000
+  #json date format
+  jackson :
+    date-format : yyyy-MM-dd HH:mm:ss
+    time-zone : GMT+8
+
+# mybatis配置
+mybatis :
+  mapper-locations : classpath:com/leihou/interview/mapper/xml/*.xml
+  type-aliases-package : com.leihou.interview.mapper.entity
