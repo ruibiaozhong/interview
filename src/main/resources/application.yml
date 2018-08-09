@@ -42,6 +42,12 @@ spring :
     date-format : yyyy-MM-dd HH:mm:ss
     time-zone : GMT+8
 
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+#    username: admin
+#    password: 123456
+
 # mybatis配置
 mybatis :
   mapper-locations : classpath:com/leihou/interview/mapper/xml/*.xml
