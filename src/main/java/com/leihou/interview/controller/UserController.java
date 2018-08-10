@@ -11,13 +11,11 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.util.SerializationUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
@@ -79,6 +77,12 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/getUser")
+    public Result getUser(@NotNull  Integer userId) {
+        Result result = new Result();
+
+        return result;
+    }
 
 
 //    @Resource
@@ -132,24 +136,7 @@ public class UserController {
 //    }
 
 
-    public static void main(String[] args) {
 
-        User user = new User();
-        Date now = new Date();
-        user.setCreateTime(now);
-        user.setLastUpdateTime(now);
-        user.setId(IdUtil.generateId());
-        user.setLoginid(UUID.randomUUID().toString());
-
-
-        String str = JsonUtil.toJson(user);
-        System.out.println(str);
-
-        User u =  JsonUtil.fromJson(str, User.class);
-
-        System.out.println(u);
-
-    }
 
 
 
