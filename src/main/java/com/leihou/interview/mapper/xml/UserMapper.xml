@@ -174,4 +174,23 @@
       type = #{type,jdbcType=DECIMAL}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  
+  
+  <select id="findByUsername" resultMap="BaseResultMap">
+    select * from hm_user where username = #{username}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

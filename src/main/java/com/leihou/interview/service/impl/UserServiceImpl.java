@@ -18,10 +18,20 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
     }
 
+    @Override
+    public int updateByPrimaryKey(User user) {
+        return userMapper.updateByPrimaryKey(user);
+    }
 
+    @Override
+    public User selectByPrimaryKey(String userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 
-
-
+    @Override
+    public User findByUsername(String username) {
+        return userMapper.findByUsername(username);
+    }
 
 
 }
