@@ -1,7 +1,7 @@
 package com.leihou.interview.controller;
 
-import com.leihou.interview.entity.Customer;
-import com.leihou.interview.mapper.CustomerMapper;
+import com.leihou.interview.entity.User;
+import com.leihou.interview.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,17 +12,12 @@ import javax.annotation.Resource;
 public class UserController {
 
     @Resource
-    private CustomerMapper customerMapper;
+    private UserService userService;
 
-    @RequestMapping("/helloworld")
-    public String helloworld() {
-        Customer customer = customerMapper.selectByPrimaryKey(10);
-
-
-
-        System.out.println(customer.getData());
-
-        return "helloworld";
+    @RequestMapping("/createUser")
+    public String createUser(User user) {
+        userService.insert(user);
+        return "success";
     }
 
 
