@@ -1,5 +1,6 @@
 package com.leihou.interview.controller;
 
+import com.leihou.interview.constant.MqConst;
 import com.leihou.interview.entity.User;
 import com.leihou.interview.service.UserService;
 import com.leihou.interview.util.IdUtil;
@@ -8,6 +9,8 @@ import com.leihou.interview.vo.result.InfoResult;
 import com.leihou.interview.vo.result.Result;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
+import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,8 +81,8 @@ public class UserController {
 
 
 
-    @Resource
-    private TopicExchange topicExchange;
+//    @Resource
+//    private TopicExchange topicExchange;
 
     @PostMapping("/improveCreateUser")
     public Result improveCreateUser(User user) {
@@ -90,23 +93,63 @@ public class UserController {
         user.setLastUpdateTime(now);
         user.setId(IdUtil.generateId());
         user.setLoginid(UUID.randomUUID().toString());
-        System.out.println(topicExchange.getName());
-        rabbitTemplate.convertAndSend(topicExchange.getName(), "add.user", JsonUtil.toJson(user));
+
+        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+        rabbitTemplate.convertAndSend(MqConst.exchange.TOPIC_USER_EXCHANGE, MqConst.topic.routingKey.USER_ADD, user, correlationData);
+
+
         result.setInfo(user);
         return result ;
     }
+//
+//    @PutMapping("/improveUpdateUser")
+//    public Result improveUpdateUser(User user) {
+//
+//        InfoResult<User> result = new InfoResult();
+//
+//        User u = userService.selectByPrimaryKey(user.getId());
+//        u.setMobile(user.getMobile());
+//        u.setEmail(user.getEmail());
+//        u.setAvatar(user.getAvatar());
+//
+//        userService.updateByPrimaryKey(u);
+//
+//        u.setLastUpdateTime(null);
+//        u.setLastLoginTime(null);
+//        u.setCreateTime(null);
+//        u.setPassword(null);
+//        u.setSecurityLevel(null);
+//        u.setType(null);
+//
+//        CorrelationData correlationData = new CorrelationData(UUID.randomUUID().toString());
+//        String userJson = JsonUtil.toJson(user);
+//        System.out.println(userJson);
+//
+//        rabbitTemplate.convertAndSend(MqConst.exchange.TOPIC_USER_EXCHANGE, MqConst.topic.routingKey.USER_UPDATE, userJson.getBytes(), correlationData);
+//
+//        return result;
+//
+//    }
 
 
+    public static void main(String[] args) {
+
+        User user = new User();
+        Date now = new Date();
+        user.setCreateTime(now);
+        user.setLastUpdateTime(now);
+        user.setId(IdUtil.generateId());
+        user.setLoginid(UUID.randomUUID().toString());
 
 
+        String str = JsonUtil.toJson(user);
+        System.out.println(str);
 
+        User u =  JsonUtil.fromJson(str, User.class);
 
+        System.out.println(u);
 
-
-
-
-
-
+    }
 
 
 

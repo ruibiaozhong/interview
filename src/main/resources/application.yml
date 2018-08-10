@@ -37,37 +37,49 @@ spring :
     pool.min-idle : 0
   # 连接超时时间（毫秒）
     timeout : 5000
+
+    #rabbitmq-demo.gzleihou.cn
+  rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      #    username: admin
+      #    password: admin
+  #    支持发布确认
+      publisher-confirms: true
+  #    支持发布返回
+      publisher-returns: true
+      listener:
+        direct:
+          acknowledge-mode: manual
+        simple:
+  #      采用手动应答
+          acknowledge-mode: manual
+  #        当前监听容器数
+          concurrency: 1
+  #        最大数
+          max-concurrency: 1
+  #        是否支持重试
+          retry:
+            enabled: true
+
+  logging:
+    config: classpath:logback.xml
+
+
   #json date format
   jackson :
     date-format : yyyy-MM-dd HH:mm:ss
     time-zone : GMT+8
 
-#rabbitmq-demo.gzleihou.cn
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-#    username: admin
-#    password: admin
-    #    支持发布确认
-    publisher-confirms: true
-    #    支持发布返回
-    publisher-returns: true
-    listener:
-       simple:
-    #      采用手动应答
-       acknowledge-mode: manual
-    #        当前监听容器数
-       concurrency: 1
-    #        最大数
-       max-concurrency: 1
-    #        是否支持重试
-       retry:
-         enabled: true
-    #        日志配置
 # mybatis配置
 mybatis :
   mapper-locations : classpath:com/leihou/interview/mapper/xml/*.xml
   type-aliases-package : com.leihou.interview.mapper.entity
+
+# 日志加载文件
+logging :
+  config : classpath:logback.xml
+
 
 
 
