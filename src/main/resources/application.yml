@@ -40,10 +40,10 @@ spring :
 
     #rabbitmq-demo.gzleihou.cn
   rabbitmq:
-      host: rabbitmq-demo.gzleihou.cn
+      host: 127.0.0.1
       port: 5672
-      username: admin
-      password: admin
+#      username: admin
+#      password: admin
   #    支持发布确认
       publisher-confirms: true
   #    支持发布返回
